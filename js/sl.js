@@ -1,8 +1,3 @@
-/*
-* All Rights Reserved
-* Author: Ashok Kumar Shah
-* https://shahnashok.com
-*/
 
 
 if(window.location.hash)
