@@ -7,9 +7,9 @@ if(window.location.hash)
 		document.getElementById('debug').style.display = "block";
 }
 
-var shah = new Object();
-shah.log = function(msg) {
-	if(shah.debug)
+var manas = new Object();
+manas.log = function(msg) {
+	if(manas.debug)
 	{
 		console.log(msg);
 		document.getElementById('loganswer').textContent = msg;
@@ -17,25 +17,25 @@ shah.log = function(msg) {
 		
 }
 
-shah.table = function(msg) {
-	if(shah.debug)
+manas.table = function(msg) {
+	if(manas.debug)
 		console.table(msg);
 }
 	
 var sl = TAFFY(config);
 var packageMCQ = {};
-shah.debug = true;
-shah.prompt = [12, 17, 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87];
-shah.struct = [{point: 12, snake: 7, ladder: 28}, {point: 17, snake: 5, ladder: 45}, {point: 22, snake: "Start", ladder: 43}, {point: 27, snake: 15, ladder: 34}, {point: 32, snake: 30, ladder: 51}, {point: 37, snake: 3, ladder: 58}, {point: 42, snake: 38, ladder: 59}, {point: 47, snake: 36, ladder: 55}, {point: 52, snake: 48, ladder: 73}, {point: 57, snake: 35, ladder: 83}, {point: 62, snake: 60, ladder: 81}, {point: 67, snake: 46, ladder: 75}, {point: 72, snake: 35, ladder: 90}, {point: 77, snake: 43, ladder: 95}, {point: 82, snake: 63, ladder: 99}, {point: 87, snake: 68, ladder: 93}];
+manas.debug = true;
+manas.prompt = [12, 17, 22, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 77, 82, 87];
+manas.struct = [{point: 12, snake: 7, ladder: 28}, {point: 17, snake: 5, ladder: 45}, {point: 22, snake: "Start", ladder: 43}, {point: 27, snake: 15, ladder: 34}, {point: 32, snake: 30, ladder: 51}, {point: 37, snake: 3, ladder: 58}, {point: 42, snake: 38, ladder: 59}, {point: 47, snake: 36, ladder: 55}, {point: 52, snake: 48, ladder: 73}, {point: 57, snake: 35, ladder: 83}, {point: 62, snake: 60, ladder: 81}, {point: 67, snake: 46, ladder: 75}, {point: 72, snake: 35, ladder: 90}, {point: 77, snake: 43, ladder: 95}, {point: 82, snake: 63, ladder: 99}, {point: 87, snake: 68, ladder: 93}];
 
-shah.questionAttempt = 0;
-shah.currentpos;
-shah.filtered = [];
-shah.lastrolled = 0;
-shah.filteredIndex = 0;
-shah.setpos = function(curpos) {
+manas.questionAttempt = 0;
+manas.currentpos;
+manas.filtered = [];
+manas.lastrolled = 0;
+manas.filteredIndex = 0;
+manas.setpos = function(curpos) {
 	
-	shah.currentpos = curpos;
+	manas.currentpos = curpos;
 	console.log(curpos);
 	
 	var cellProp = $('td').filter(function(i,e){ return this.textContent.trim() == curpos }).get(0);
@@ -51,8 +51,8 @@ shah.setpos = function(curpos) {
 	//document.getElementsByClassName('dice')[0].className = "dice";
 	if(curpos == "Stop")
 	{
-		shah.gameover();
-	} else if(shah.lastrolled == 6)
+		manas.gameover();
+	} else if(manas.lastrolled == 6)
 	{
 		setTimeout(function()
 		{
@@ -64,7 +64,7 @@ shah.setpos = function(curpos) {
 			}, 1500);
 		}, 1000);
 		
-	} else if(shah.prompt.indexOf(shah.currentpos) == -1)
+	} else if(manas.prompt.indexOf(manas.currentpos) == -1)
 	{
 		document.getElementById('rolldicebtn').onclick = rolldice;
 		document.getElementById('reddice').onclick = rolldice;
@@ -73,7 +73,7 @@ shah.setpos = function(curpos) {
 	}
 }
 
-shah.gameover = function()
+manas.gameover = function()
 {
 	//alert('game over');
 	$('#replay').show();
@@ -113,7 +113,7 @@ var selectlevel = function(level) {
 			slThemes.push(r.theme);
 	});
 
-	shah.log(slThemes);
+	manas.log(slThemes);
 	var themeHTML = "";
 	for(var i=0; i<slThemes.length; i++)
 		themeHTML += '<li onclick="selecttheme(\'' + slThemes[i] + '\')">' + slThemes[i] + '</li>';
@@ -124,16 +124,16 @@ var selecttheme = function(theme) {
 	nextscreen("screen4", "screen5");
 	packageMCQ.theme = theme;
 	
-	shah.filtered = new Array();
+	manas.filtered = new Array();
 	sl({level: packageMCQ.level, theme: packageMCQ.theme}).each(function(r)
 	{
-		shah.filtered.push(r);
+		manas.filtered.push(r);
 	});
 	
-	shah.table(shah.filtered);
+	manas.table(manas.filtered);
 	
-	shuffle(shah.filtered);
-	shah.setpos("Start");
+	shuffle(manas.filtered);
+	manas.setpos("Start");
 }
 
 function shuffle(o){
@@ -150,14 +150,14 @@ var rolldice = function()
 	var randomNum;
 	
 	randomNum = Math.floor(Math.random() * 6) + 1;
-	if(shah.questionAttempt < 10)
+	if(manas.questionAttempt < 10)
 	{
-		parentloop: for(var i=0; i<shah.prompt.length; i++)
+		parentloop: for(var i=0; i<manas.prompt.length; i++)
 		{
 			for(var j=1; j<6; j++)
 			{
-				//console.log('current pos: ' + (shah.currentpos+j) + '; prompt: ' + shah.prompt[i]);
-				if((shah.currentpos+j) == shah.prompt[i])
+				//console.log('current pos: ' + (manas.currentpos+j) + '; prompt: ' + manas.prompt[i]);
+				if((manas.currentpos+j) == manas.prompt[i])
 				{
 					console.log('captured at ' + j);
 					randomNum = j;
@@ -171,23 +171,23 @@ var rolldice = function()
 	{
 		randomNum = parseInt(window.toroll);
 	}
-	shah.log('dice rolled: ' + randomNum);
+	manas.log('dice rolled: ' + randomNum);
 	document.getElementsByClassName('dice')[0].className = "dice digit" + randomNum;
 	setTimeout(function()
 	{
 		document.getElementsByClassName('dice')[0].className += "static";
-		if(shah.currentpos == "Start") shah.currentpos = 1;
-		if(shah.currentpos == "Stop") shah.currentpos = 100;
-		shah.currentpos += randomNum;
-		shah.lastrolled = randomNum;
+		if(manas.currentpos == "Start") manas.currentpos = 1;
+		if(manas.currentpos == "Stop") manas.currentpos = 100;
+		manas.currentpos += randomNum;
+		manas.lastrolled = randomNum;
 		var tempholder;
 		
-		if(shah.currentpos == 0)		tempholder = "Start";
-		else if(shah.currentpos >= 100)	tempholder = "Stop";
-		else 							tempholder = shah.currentpos;
+		if(manas.currentpos == 0)		tempholder = "Start";
+		else if(manas.currentpos >= 100)	tempholder = "Stop";
+		else 							tempholder = manas.currentpos;
 
 		
-		shah.setpos(tempholder);	
+		manas.setpos(tempholder);	
 		
 	}, 1200);
 }
@@ -201,32 +201,32 @@ document.getElementById('selectLevel').innerHTML = levelHTML;
 
 var setQuestion = function()
 {
-	shah.questionAttempt++;
+	manas.questionAttempt++;
 	
 	//reshuffle filtered questions before the question repeats
-	if(shah.filteredIndex >= shah.filtered.length)
+	if(manas.filteredIndex >= manas.filtered.length)
 	{
-		shuffle(shah.filtered);
-		shah.filteredIndex = 0;
-		shah.table(shah.filtered);
+		shuffle(manas.filtered);
+		manas.filteredIndex = 0;
+		manas.table(manas.filtered);
 	}
 	
 	//insert information for q/a
-	document.getElementById('questionTitleTxt').textContent = shah.filtered[shah.filteredIndex].question;
+	document.getElementById('questionTitleTxt').textContent = manas.filtered[manas.filteredIndex].question;
 	
 	for(var i=0; i<4; i++)
 	{
-		document.querySelectorAll('#userAnswer ul li')[i].textContent = shah.filtered[shah.filteredIndex].answers[i];
-		if(i  == (parseInt(shah.filtered[shah.filteredIndex].correct) - 1))
+		document.querySelectorAll('#userAnswer ul li')[i].textContent = manas.filtered[manas.filteredIndex].answers[i];
+		if(i  == (parseInt(manas.filtered[manas.filteredIndex].correct) - 1))
 		{
 			document.querySelectorAll('#userAnswer ul li')[i].id = "correctans";
-			shah.log('Ans: ' + shah.filtered[shah.filteredIndex].answers[i]);
+			manas.log('Ans: ' + manas.filtered[manas.filteredIndex].answers[i]);
 		}
 	}
 	
 	//show question viewer
 	document.getElementById('questionViewer').style.bottom = "0px";
-	shah.filteredIndex++;
+	manas.filteredIndex++;
 }
 
 var submitAnswer = function()
@@ -243,11 +243,11 @@ var submitAnswer = function()
 	}
 
 	var newpos;
-	for(var i=0; i<shah.struct.length; i++)
+	for(var i=0; i<manas.struct.length; i++)
 	{
-		if(shah.currentpos == shah.struct[i].point)
+		if(manas.currentpos == manas.struct[i].point)
 		{
-			newpos = shah.struct[i];
+			newpos = manas.struct[i];
 			break;
 		}
 	}
@@ -259,7 +259,7 @@ var submitAnswer = function()
 	
 	setTimeout(function()
 	{
-		shah.setpos((attempt == true) ? newpos.ladder : newpos.snake);
+		manas.setpos((attempt == true) ? newpos.ladder : newpos.snake);
 		document.getElementById((attempt == true) ? "correctsound" : "incorrectsound").play();
 		document.getElementsByClassName('active')[0].className = "";
 	}, 1000);
